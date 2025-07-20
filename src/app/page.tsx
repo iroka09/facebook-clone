@@ -4,9 +4,11 @@ import NewsCard from "@/components/NewsCard"
 import Image from "next/image"
 import { BsFileImage } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
+import { getNews } from "@/lib/getNews"
 
 
 export default async function App() {
+  const news = await getNews()
   return (
     <div>
       <Header withNav />
@@ -44,7 +46,7 @@ export default async function App() {
         </ul>
       </section >
       <section >
-        <NewsCard />
+        {news.map((x, i) => <NewsCard key={x.id} data={x} />)}
       </section>
     </div>
   )

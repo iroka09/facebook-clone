@@ -1,4 +1,5 @@
 
+import React from "react"
 import { Metadata } from "next"
 import Providers from "@/app/Providers"
 import Script from "next/script"
@@ -7,7 +8,7 @@ import "@/styles/globals.css"
 
 
 export const metadata: Metadata = {
-  title: "Facebook"
+  titles: "Facebook"
 }
 
 
