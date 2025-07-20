@@ -26,38 +26,20 @@ export default function Navs({ withNav = true }) {
       <header className="px-3 py-2 mb-2 flex justify-between items-center">
         <h2 className="font-bold text-primary text-3xl">facebook</h2>
         <div className="space-x-3 text-3xl">
-          <CircleButton>
-            <IoMdAdd />
-          </CircleButton>
-          <CircleButton>
-            <IoSearch />
-          </CircleButton>
-          <CircleButton>
-            <RxHamburgerMenu />
-          </CircleButton>
+          <CircleButton><IoMdAdd /></CircleButton>
+          <CircleButton><IoSearch /></CircleButton>
+          <CircleButton><RxHamburgerMenu /></CircleButton>
         </div>
       </header>
       {withNav && (
         <nav>
           <ul className="flex px-3 pb-4 justify-between text-3xl items-center border-b">
-            <li>
-              <GoHome />
-            </li>
-            <li>
-              <RiGroupLine />
-            </li>
-            <li>
-              <RiMessengerLine />
-            </li>
-            <li>
-              <MdOndemandVideo />
-            </li>
-            <li>
-              <GrNotification />
-            </li>
-            <li>
-              <CiShop className="stroke-[0.8px]" />
-            </li>
+            <li><GoHome /></li>
+            <li><RiGroupLine /></li>
+            <li><RiMessengerLine /></li>
+            <li><MdOndemandVideo /></li>
+            <li><GrNotification /></li>
+            <li><CiShop className="stroke-[0.8px]" /></li>
           </ul>
         </nav>
       )}

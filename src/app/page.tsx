@@ -1,5 +1,6 @@
 
 import Header from "@/components/Header"
+import NewsCard from "@/components/NewsCard"
 import Image from "next/image"
 import { BsFileImage } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
@@ -42,6 +43,9 @@ export default async function App() {
           }
         </ul>
       </section >
+      <section >
+        <NewsCard />
+      </section>
     </div>
   )
 }
