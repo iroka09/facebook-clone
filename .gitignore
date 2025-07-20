@@ -1,0 +1,8 @@
+node_modules
+.next
+.env
+.env.*.local
+babel.config.js
+package-lock.json
+yarn.lock
+tsconfig.tsbuildinfo
