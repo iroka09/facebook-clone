@@ -6,25 +6,24 @@ const categories = ["general", "world", "nation", "business", "technology", "ent
 
 export interface NewsType {
   totalArticles: number,
-  articles: [
-    {
+  articles: Array<{
+    id: string,
+    title: string,
+    description: string,
+    content: string,
+    url: string,
+    image: string,
+    publishedAt: string,
+    source: {
       id: string,
-      title: string,
-      description: string,
-      content: string,
-      url: string,
-      image: string,
-      publishedAt: string,
-      source: {
-        id: string,
-        name: string,
-        url: string
-      }
+      name: string,
+      url: string
     }
-  ]
+  }>
 }
 
-export async function getNews(_url: string): Promise<NewsType["articles"]> {
+
+export async function getNews(_url?: string): Promise<NewsType["articles"]> {
   const url = _url || `https:gnews.io/api/v4/top-headlines?category=${categories[0]}&lang=en&country=us&max=10&apikey=${API_KEY}`
   const resp = await fetch(url, { cache: "force-cache" })
   const news = (await resp.json()) as NewsType

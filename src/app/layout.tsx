@@ -8,11 +8,11 @@ import "@/styles/globals.css"
 
 
 export const metadata: Metadata = {
-  titles: "Facebook"
+  title: "Facebook"
 }
 
 
-export default async function ({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="">

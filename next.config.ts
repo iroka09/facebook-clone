@@ -7,8 +7,11 @@ const isStrict = false;
 const nextConfig: NextConfig = {
   ...staticExport ? { output: "export", } : {},
   images: {
-    unoptimized: staticExport, // Needed if using Next.js Image component 
-    remotePatterns: [new URL('https://picsum.photos/**')]
+    unoptimized: staticExport, //defaults to false, set to trur if using Next.js Image component with static export
+    remotePatterns: [
+      new URL('https://picsum.photos/**'),
+      new URL('https://dummyjson.com/**')
+    ]
   },
   eslint: {
     ignoreDuringBuilds: !isStrict

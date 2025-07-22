@@ -5,10 +5,13 @@ import Image from "next/image"
 import { BsFileImage } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
 import { getNews } from "@/lib/getNews"
+import { getUsers } from "@/lib/getUsers"
 
 
 export default async function App() {
   const news = await getNews()
+  const users = await getUsers("?limit=10&skip=0&select=firstName,lastName,image")
+  console.log(users)
   return (
     <div>
       <Header withNav />
@@ -23,31 +26,47 @@ export default async function App() {
         <BsFileImage className="text-5xl text-green-500" />
       </section>
       <section>
-        <ul className="p-3 *:w-[100px] *:h-[180px] *:rounded-md *:overflow-hidden *:border whitespace-nowrap space-x-1 overflow-x-auto [border-block:_2px_solid_#ccc] ">
-          <li className="inline-block">
+        <ul className="p-3 *:w-[100px] *:h-[180px] *:rounded-md *:overflow-hidden *:border whitespace-nowrap space-x-1 overflow-x-auto border-t-2 ">
+          <StoryLine>
             <div className="flex flex-col h-full">
               <div className="h-[60%]">
                 <Image className="h-full w-full" alt="create story picture" src="https://picsum.photos/seed/zero/100" width="100" height="100" />
               </div>
-              <div className="relative flex pb-1 px-2 items-end justify-center gap-4 w-full border h-full">
+              <div className="relative flex p-2 items-end justify-center gap-4 w-full border h-full">
                 <IoMdAdd className="absolute rounded-full p-1 text-3xl text-white bg-primary inline-block border border-white top-[-20%]" />
-                <span className="text-md">Create story</span>
+                <span className="text-sm">Create story</span>
               </div>
             </div>
-          </li>
+          </StoryLine>
           {
-            [...Array(10)].map((_, index) => (
-              <li key={index} className="relative inline-block">
-                <Image className="object-cover h-full w-full" alt="create story picture" src={`https://picsum.photos/seed/${"seed_" + index}/100/200`} width="100" height="200" />
-                <span className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white" style={{ textShadow: "0 0 1px black" }}>Joy Nwamaka</span>
-              </li>
+            users.map((user, index) => (
+              <StoryLine key={index}>
+                <Image className="object-cover h-full w-full" alt="create story picture" src={`https://picsum.photos/seed/${user.firstName + "_"+user.lastName}/100`} width="100" height="200" />
+                <span
+                  className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black]"
+                >
+                  {user.firstName} {user.lastName}
+                </span>
+              </StoryLine>
             ))
           }
         </ul>
       </section >
       <section >
-        {news.map((x, i) => <NewsCard key={x.id} data={x} />)}
+        {news.map((x, i) => <NewsCard key={i} data={x} />)}
       </section>
     </div>
+  )
+}
+
+
+function StoryLine({ className = "", children }) {
+  return (
+    <li
+      className={"relative inline-block active:bg-gray-100 active:scale-[0.95] select-none transition" +
+        " " + className}
+    >
+      {children}
+    </li>
   )
 }

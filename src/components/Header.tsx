@@ -33,7 +33,7 @@ export default function Navs({ withNav = true }) {
       </header>
       {withNav && (
         <nav>
-          <ul className="flex px-3 pb-4 justify-between text-3xl items-center border-b">
+          <ul className="flex px-3 pb-4 justify-between text-2xl items-center border-b">
             <li><GoHome /></li>
             <li><RiGroupLine /></li>
             <li><RiMessengerLine /></li>
