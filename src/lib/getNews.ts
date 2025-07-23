@@ -6,21 +6,23 @@ const categories = ["general", "world", "nation", "business", "technology", "ent
 
 export interface NewsType {
   totalArticles: number,
-  articles: Array<{
-    id: string,
-    title: string,
-    description: string,
-    content: string,
-    url: string,
-    image: string,
-    publishedAt: string,
-    source: {
-      id: string,
-      name: string,
-      url: string
-    }
-  }>
+  articles: NewsArticles
 }
+
+export type NewsArticles  = Array<{
+  id: string,
+  title: string,
+  description: string,
+  content: string,
+  url: string,
+  image: string,
+  publishedAt: string,
+  source: {
+    id: string,
+    name: string,
+    url: string
+  }
+}>
 
 
 export async function getNews(_url?: string): Promise<NewsType["articles"]> {

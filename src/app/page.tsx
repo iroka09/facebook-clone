@@ -1,6 +1,6 @@
 
 import Header from "@/components/Header"
-import NewsCard from "@/components/NewsCard"
+import NewsFeed from "@/components/NewsFeed"
 import Image from "next/image"
 import { BsFileImage } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
@@ -41,7 +41,7 @@ export default async function App() {
           {
             users.map((user, index) => (
               <StoryLine key={index}>
-                <Image className="object-cover h-full w-full" alt="create story picture" src={`https://picsum.photos/seed/${user.firstName + "_"+user.lastName}/100`} width="100" height="200" />
+                <Image className="object-cover h-full w-full" alt="create story picture" src={`https://picsum.photos/seed/${user.firstName + "_" + user.lastName}/100`} width="100" height="200" />
                 <span
                   className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black]"
                 >
@@ -52,8 +52,8 @@ export default async function App() {
           }
         </ul>
       </section >
-      <section >
-        {news.map((x, i) => <NewsCard key={i} data={x} />)}
+      <section className="divide-y-4 divide-gray-300">
+        <NewsFeed news={news} />
       </section>
     </div>
   )

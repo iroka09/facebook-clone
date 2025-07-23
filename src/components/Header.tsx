@@ -1,4 +1,5 @@
 
+import Image from "next/image"
 import { GoHome } from "react-icons/go";
 import { RiGroupLine } from "react-icons/ri";
 import { RiMessengerLine } from "react-icons/ri";
@@ -25,7 +26,7 @@ export default function Navs({ withNav = true }) {
     <div >
       <header className="px-3 py-2 mb-2 flex justify-between items-center">
         <h2 className="font-bold text-primary text-3xl">facebook</h2>
-        <div className="space-x-3 text-3xl">
+        <div className="space-x-3 text-3xl active:*:bg-slate-300">
           <CircleButton><IoMdAdd /></CircleButton>
           <CircleButton><IoSearch /></CircleButton>
           <CircleButton><RxHamburgerMenu /></CircleButton>
@@ -33,7 +34,7 @@ export default function Navs({ withNav = true }) {
       </header>
       {withNav && (
         <nav>
-          <ul className="flex px-3 pb-4 justify-between text-2xl items-center border-b">
+          <ul className="flex px-3 pb-2 justify-between text-2xl items-center border-b active:*:bg-slate-100 *:p-4">
             <li><GoHome /></li>
             <li><RiGroupLine /></li>
             <li><RiMessengerLine /></li>

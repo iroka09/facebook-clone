@@ -7,27 +7,10 @@ import { PiShareFatLight } from "react-icons/pi";
 import { IoMdGlobe } from "react-icons/io";
 import { IoIosMore } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import FeedContent from "@/components/FeedContent"
+import NewsContent from "@/components/NewsContent"
 import random from "random"
 import moment from "moment"
 
-
-
-
-type kk = {
-  id: string,
-  title: string,
-  description: string,
-  content: string,
-  url: string,
-  image: string,
-  publishedAt: string,
-  source: {
-    id: string,
-    name: string,
-    url: string
-  }
-}
 
 
 
@@ -35,7 +18,7 @@ export default function News({ data }) {
   const likes = random.int(100, 999)
   const comments = random.int(100, 999)
   return (
-    <ul className="py-3 space-y-3 border-t-4 border-t-gray-300">
+    <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
         <Image className="rounded-full" alt="news picture" src="https://picsum.photos/seed/news1/60" width="50" height="50" />
         <div>
@@ -52,7 +35,7 @@ export default function News({ data }) {
         </div>
       </li>
       <li className="px-3 text-slate-700">
-        <FeedContent text={data.content.replace(/\.{3}.*$/s, ".")} />
+        <NewsContent text={data.content.replace(/\.{3}.*$/s, ".")} />
       </li>
       <li>
         <Link href={data.url}>
@@ -60,10 +43,10 @@ export default function News({ data }) {
         </Link>
       </li>
       {random.int(1, 10) > 4 && (
-        <li className="px-3 bg-gray-100">
+        <li className="bg-gray-100">
           <Link
             href={data.url}
-            className="block active:bg-gray-200"
+            className="px-3 block active:bg-gray-200"
           >
             <h4 className="text-slate-400">{data.source.name}</h4>
             <span className="font-bold">{data.title}</span>
