@@ -49,12 +49,30 @@ const NEWSDATA_API_KEY = process.env.NEWSDATA_API_KEY
 
 export async function getNews(_url?: string): Promise<NewsDataResponse["results"]> {
   const url = _url || `https://newsdata.io/api/1/latest?apikey=${NEWSDATA_API_KEY}&q=${random.choice(categories)}&language=en&prioritydomain=top`
-  const resp = await fetch(url, { cache: "no-store" })
-  const news = (await resp.json()) as NewsDataResponse
+  const news = await fetchNews(url, 2)
   return news.results
 }
 
 
+async function fetchNews(url, count = 1) {
+  const arr: NewsDataResponse[] = []
+  while (count--) {
+    const resp = await fetch(url, { cache: "no-store" })
+    const news = (await resp.json()) as NewsDataResponse
+    arr.push(news)
+  }
+  let value: Partial<NewsDataResponse> = {}
+  arr.forEach((x, i) => {
+    if (i === 0) {
+      value = { ...x }
+    }
+    else {
+      value.totalResults += x.totalResults;
+      value.results = [...value.results, ...x.results]
+    }
+  })
+  return value as Required<NewsDataResponse>
+}
 
 
 /*

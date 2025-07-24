@@ -23,9 +23,9 @@ export default function News({ data }) {
   return (
     <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
-        <img className={`rounded-full bg-gray-50/30 border-2 ${random.boolean ? "outline ouline-3 outline-primary outline-offset-2" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
+        <img className={`rounded-full bg-gray-50/30 border-3 border-gray-500 min-h-[50px] ${random.boolean() ? "outline ouline-4 outline-primary/80 outline-offset-2 border-1" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
         <div>
-          <h3 className="font-medium border mb-1 font-medium">{data.source_name}</h3>
+          <h3 className="font-medium mb-1 font-medium">{data.source_name}</h3>
           <div className="text-xs flex gap-2 items-center text-slate-400">
             <span>{getPastTime(data.pubDate)}</span>
             <span>•</span>
