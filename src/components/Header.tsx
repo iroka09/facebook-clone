@@ -24,7 +24,7 @@ function CircleButton({ className = "", children, ...props }) {
 export default function Navs({ withNav = true }) {
   return (
     <div >
-      <header className="px-3 py-2 mb-2 flex justify-between items-center">
+      <header className="px-3 py-2 flex justify-between items-center">
         <h2 className="font-bold text-primary text-3xl">facebook</h2>
         <div className="space-x-3 text-3xl active:*:bg-slate-300">
           <CircleButton><IoMdAdd /></CircleButton>
@@ -34,7 +34,7 @@ export default function Navs({ withNav = true }) {
       </header>
       {withNav && (
         <nav>
-          <ul className="flex px-3 pb-2 justify-between text-2xl items-center border-b active:*:bg-slate-100 *:p-4">
+          <ul className="flex px-3 justify-between text-2xl items-center border-b active:*:bg-slate-100 *:p-4">
             <li><GoHome /></li>
             <li><RiGroupLine /></li>
             <li><RiMessengerLine /></li>

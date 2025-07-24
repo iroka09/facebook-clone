@@ -7,6 +7,8 @@ import { PiShareFatLight } from "react-icons/pi";
 import { IoMdGlobe } from "react-icons/io";
 import { IoIosMore } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
+import { IoMdThumbsUp } from "react-icons/io";
+import { FcLike } from "react-icons/fc";
 import NewsContent from "@/components/NewsContent"
 import random from "random"
 import moment from "moment"
@@ -17,14 +19,15 @@ import moment from "moment"
 export default function News({ data }) {
   const likes = random.int(100, 999)
   const comments = random.int(100, 999)
+  //console.log(data, "loded from news")
   return (
     <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
-        <Image className="rounded-full" alt="news picture" src="https://picsum.photos/seed/news1/60" width="50" height="50" />
+        <img className={`rounded-full bg-gray-50/30 border-2 ${random.boolean ? "outline ouline-3 outline-primary outline-offset-2" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
         <div>
-          <h3 className="font-medium mb-1 font-medium">{data.source.name}</h3>
+          <h3 className="font-medium border mb-1 font-medium">{data.source_name}</h3>
           <div className="text-xs flex gap-2 items-center text-slate-400">
-            <span>{getPastTime(data.publishedAt)}</span>
+            <span>{getPastTime(data.pubDate)}</span>
             <span>•</span>
             <span><IoMdGlobe /></span>
           </div>
@@ -35,27 +38,33 @@ export default function News({ data }) {
         </div>
       </li>
       <li className="px-3 text-slate-700">
-        <NewsContent text={data.content.replace(/\.{3}.*$/s, ".")} />
+        <NewsContent text={data.description?.replace(/\.{3}.*$/s, ".")} />
       </li>
       <li>
-        <Link href={data.url}>
-          <img className="w-full" alt="create story picture" src={data.image} width="200" height="120" />
+        <Link href={data.link} className="bg-gray-500/30">
+          <img className="w-full" alt="create story picture" src={data.image_url} width="200" height="120" />
         </Link>
       </li>
-      {random.int(1, 10) > 4 && (
+      {random.boolean() && (
         <li className="bg-gray-100">
           <Link
-            href={data.url}
+            href={data.link}
             className="px-3 block active:bg-gray-200"
           >
-            <h4 className="text-slate-400">{data.source.name}</h4>
-            <span className="font-bold">{data.title}</span>
-            <span className="block text-slate-400 text-md">{data.description}</span>
+            <h4 className="text-slate-400">{data.source_url.replace(/^http(s)?\:\/\/(www\.)?/i, "").toUpperCase()}</h4>
+            <span className="font-bold">{data.title.replace(/(?<=(\w+\s){9}\w+(?=\s)).+$/, "...")}</span>
+            <span className="block text-slate-400 text-md">{data.description?.split(/\s+/).slice(0, 10).join(" ")}</span>
           </Link>
         </li>
       )}
       <li className="px-3 text-slate-400 flex items-center justify-between">
-        <div>😡😂<span>{likes}</span></div>
+        <div className="flex items-center gap-[2px]">
+          <span className="w-4 grid place-items-center bg-primary aspect-square rounded-full text-[70%] text-white">
+            <IoMdThumbsUp />
+          </span>
+          {random.choice(["😀", "😥", "😡", <FcLike className="text-lg" />, ""])}
+          <span>{likes}</span>
+        </div>
         <div>{comments} comments</div>
       </li>
       <li className="px-3 flex justify-between">

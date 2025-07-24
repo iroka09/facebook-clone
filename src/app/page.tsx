@@ -9,9 +9,8 @@ import { getUsers } from "@/lib/getUsers"
 
 
 export default async function App() {
-  const news = await getNews()
   const users = await getUsers("?limit=10&skip=0&select=firstName,lastName,image")
-  console.log(users)
+  const news = await getNews()
   return (
     <div>
       <Header withNav />
