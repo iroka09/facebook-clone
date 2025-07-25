@@ -19,11 +19,14 @@ import moment from "moment"
 export default function News({ data }) {
   const likes = random.int(100, 999)
   const comments = random.int(100, 999)
+  const hasStatus = random.boolean()
   //console.log(data, "loded from news")
   return (
     <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
-        <img className={`rounded-full bg-gray-50/30 border-3 border-gray-500 min-h-[50px] ${random.boolean() ? "outline ouline-4 outline-primary/80 outline-offset-2 border-1" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
+        <div className={`w-fit rounded-full box-border ${hasStatus ? "border-4 p-2 border-primary" : "border-3 border-gray-500"}`}>
+          <img className={`rounded-full bg-gray-50/30 min-h-[50px] ${hasStatus ? "border-2 border-gray-500" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
+        </div>
         <div>
           <h3 className="font-medium mb-1 font-medium">{data.source_name}</h3>
           <div className="text-xs flex gap-2 items-center text-slate-400">

@@ -47,16 +47,17 @@ export interface NewsDataArticle {
 
 const NEWSDATA_API_KEY = process.env.NEWSDATA_API_KEY
 
-export async function getNews(_url?: string): Promise<NewsDataResponse["results"]> {
-  const url = _url || `https://newsdata.io/api/1/latest?apikey=${NEWSDATA_API_KEY}&q=${random.choice(categories)}&language=en&prioritydomain=top`
-  const news = await fetchNews(url, 2)
+export async function getNews(): Promise<NewsDataResponse["results"]> {
+  const news = await fetchNews(2)
   return news.results
 }
 
 
-async function fetchNews(url, count = 1) {
+async function fetchNews(count = 1) {
   const arr: NewsDataResponse[] = []
+  const q = [...categories]
   while (count--) {
+    const url = `https://newsdata.io/api/1/latest?apikey=${NEWSDATA_API_KEY}&q=${q.splice(random.int(0, q.length - 1), 1)[0]}&language=en&prioritydomain=top`
     const resp = await fetch(url, { cache: "no-store" })
     const news = (await resp.json()) as NewsDataResponse
     arr.push(news)
