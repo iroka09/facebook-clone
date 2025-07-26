@@ -1,15 +1,11 @@
 import Image from "next/image"
 import Link from "next/link"
-import { FaRegComment } from "react-icons/fa";
-import { AiOutlineLike } from "react-icons/ai";
-import { FaWhatsapp } from "react-icons/fa";
-import { PiShareFatLight } from "react-icons/pi";
-import { IoMdGlobe } from "react-icons/io";
-import { IoIosMore } from "react-icons/io";
 import { IoMdClose } from "react-icons/io";
-import { IoMdThumbsUp } from "react-icons/io";
+import { IoIosMore } from "react-icons/io";
+import { IoMdGlobe } from "react-icons/io";
+import NewsContent from "./NewsContent"
+import NewsReactions from "./NewsReactions"
 import { FcLike } from "react-icons/fc";
-import NewsContent from "@/components/NewsContent"
 import random from "random"
 import moment from "moment"
 
@@ -17,15 +13,14 @@ import moment from "moment"
 
 
 export default function News({ data }) {
-  const likes = random.int(100, 999)
-  const comments = random.int(100, 999)
   const hasStatus = random.boolean()
+  const showSourceLinkBelow = random.boolean()
   //console.log(data, "loded from news")
   return (
     <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
-        <div className={`w-fit rounded-full box-border ${hasStatus ? "border-4 p-2 border-primary" : "border-3 border-gray-500"}`}>
-          <img className={`rounded-full bg-gray-50/30 min-h-[50px] ${hasStatus ? "border-2 border-gray-500" : ""}`} alt="news picture" src={data.source_icon} width="50" height="50" />
+        <div className={`w-fit aspect-square overflow-hidden rounded-full box-border ${hasStatus ? "border-2 border-primary" : "border-2 border-gray-500"}`}>
+          <img className={`bg-gray-50/30`} alt="news picture" src={data.source_icon} width="50" height="50" />
         </div>
         <div>
           <h3 className="font-medium mb-1 font-medium">{data.source_name}</h3>
@@ -54,37 +49,19 @@ export default function News({ data }) {
             href={data.link}
             className="px-3 block active:bg-gray-200"
           >
-            <h4 className="text-slate-400">{data.source_url.replace(/^http(s)?\:\/\/(www\.)?/i, "").toUpperCase()}</h4>
+            {showSourceLinkBelow && <h4 className="text-slate-400">{data.source_url.replace(/^http(s)?\:\/\/(www\.)?/i, "").toUpperCase()}</h4>}
             <span className="font-bold">{data.title.replace(/(?<=(\w+\s){9}\w+(?=\s)).+$/, "...")}</span>
-            <span className="block text-slate-400 text-md">{data.description?.split(/\s+/).slice(0, 10).join(" ")}</span>
+            {showSourceLinkBelow && random.boolean() && <span className="block text-slate-400 text-md">{data.description?.split(/\s+/).slice(0, 10).join(" ")}</span>}
           </Link>
         </li>
       )}
-      <li className="px-3 text-slate-400 flex items-center justify-between">
-        <div className="flex items-center gap-[2px]">
-          <span className="w-4 grid place-items-center bg-primary aspect-square rounded-full text-[70%] text-white">
-            <IoMdThumbsUp />
-          </span>
-          {random.choice(["😀", "😥", "😡", <FcLike className="text-lg" />, ""])}
-          <span>{likes}</span>
-        </div>
-        <div>{comments} comments</div>
-      </li>
-      <li className="px-3 flex justify-between">
-        {[[AiOutlineLike, likes], [FaRegComment, comments], [FaWhatsapp], [PiShareFatLight]].map(([icon, num], i) => (
-          <ButtonReaction key={i} Icon={icon} num={num} />
-        ))}
-      </li>
+      <NewsReactions
+        comments={random.int(100, 500)}
+        likes={random.int(100, 500)}
+        emoji={random.choice(["😀", "😥", "😡", <FcLike className="text-lg" />, ""])}
+        link={data.link}
+      />
     </ul>
-  )
-}
-
-
-function ButtonReaction({ Icon, num }) {
-  return (
-    <button className="flex gap-2 justify-center items-center py-2 px-5 bg-gray-100 active:bg-gray-200 rounded-full w-[70px]">
-      <span className="text-lg"><Icon /></span> {(typeof num === "number") && <span className="text-sm">{num}</span>}
-    </button>
   )
 }
 

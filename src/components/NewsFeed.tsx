@@ -1,5 +1,5 @@
 
-import News from "@/components/News"
+import News from "@/components/news"
 import Reels from "@/components/Reels"
 import random from "random"
 import { NewsDataArticle } from "@/lib/getNews"

@@ -1,8 +1,6 @@
 
 import random from "random"
-
-
-const categories = ["general", "world", "nation", "business", "technology", "entertainment", "sports", "science", "health"] as const
+import { writeToCache, readFromCache } from "@/lib/fetch_cache"
 
 export interface NewsDataResponse {
   status: string; // "success"
@@ -45,7 +43,11 @@ export interface NewsDataArticle {
   duplicate?: boolean;
 }
 
+
 const NEWSDATA_API_KEY = process.env.NEWSDATA_API_KEY
+const categories = ["general", "world", "nation", "business", "technology", "entertainment", "sports", "science", "health"] as const
+const cacheKey = "fetched_news"
+
 
 export async function getNews(): Promise<NewsDataResponse["results"]> {
   const news = await fetchNews(2)
@@ -56,55 +58,38 @@ export async function getNews(): Promise<NewsDataResponse["results"]> {
 async function fetchNews(count = 1) {
   const arr: NewsDataResponse[] = []
   const q = [...categories]
-  while (count--) {
-    const url = `https://newsdata.io/api/1/latest?apikey=${NEWSDATA_API_KEY}&q=${q.splice(random.int(0, q.length - 1), 1)[0]}&language=en&prioritydomain=top`
-    const resp = await fetch(url, { cache: "no-store" })
-    const news = (await resp.json()) as NewsDataResponse
-    arr.push(news)
-  }
-  let value: Partial<NewsDataResponse> = {}
-  arr.forEach((x, i) => {
-    if (i === 0) {
-      value = { ...x }
+  try {
+    // First try to fetch fresh data
+    while (count--) {
+      const url = `https://newsdata.io/api/1/latest?apikey=${NEWSDATA_API_KEY}&q=${q.splice(random.int(0, q.length - 1), 1)[0]}&language=en&prioritydomain=top`
+      const resp = await fetch(url, { cache: "no-store" })
+      if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
+      const news = (await resp.json()) as NewsDataResponse
+      arr.push(news)
     }
-    else {
-      value.totalResults += x.totalResults;
-      value.results = [...value.results, ...x.results]
-    }
-  })
-  return value as Required<NewsDataResponse>
-}
-
-
-/*
-export interface NewsType {
-  totalArticles: number,
-  articles: NewsArticles
-}
-
-export type NewsArticles = Array<{
-  id: string,
-  title: string,
-  description: string,
-  content: string,
-  url: string,
-  image: string,
-  publishedAt: string,
-  source: {
-    id: string,
-    name: string,
-    url: string,
-    logo_icon?: string
+    let value: Partial<NewsDataResponse> = {}
+    arr.forEach((x, i) => {
+      if (i === 0) {
+        value = { ...x }
+      }
+      else {
+        value.totalResults! += x.totalResults;
+        value.results = [...value.results!, ...x.results]
+      }
+    })
+    // Cache the fresh data
+    await writeToCache(cacheKey, value);
+    return value as NewsDataResponse
   }
-}>
-
-
-const GNEWS_API_KEY = process.env.GNEWS_API_KEY
-
-export async function getNews(_url?: string): Promise<NewsType["articles"]> {
-  const url = _url || `https:gnews.io/api/v4/top-headlines?category=${categories[0]}&lang=en&country=us&max=10&apikey=${GNEWS_API_KEY}`
-  const resp = await fetch(url, { cache: "force-cache" })
-  const news = (await resp.json()) as NewsType
-  return news.articles
+  catch (fetchError) {
+    console.error('News Fetch failed, trying cache');
+    // If fetch fails, try to get cached data
+    const cachedData = await readFromCache<NewsDataResponse>(cacheKey);
+    if (cachedData) {
+      console.log('News Fetch Using cached data');
+      return cachedData;
+    }
+    // If no cached data available, rethrow the original error
+    throw fetchError;
+  }
 }
-*/
