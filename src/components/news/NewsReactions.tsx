@@ -24,7 +24,7 @@ export default function NewsReaction({ likes, comments, emoji, link }) {
         <div>{comments} comments</div>
       </li>
       <li className="px-3 flex justify-between">
-        {[[[AiOutlineLike, IoMdThumbsUp], "likes", likes], [FaRegComment, "comments", comments], [FaWhatsapp, "whatsapp"], [PiShareFatLight, "share"]].map(([Icon, name, num], i) => {
+        {([[[AiOutlineLike, IoMdThumbsUp], "likes", likes], [FaRegComment, "comments", comments], [FaWhatsapp, "whatsapp"], [PiShareFatLight, "share"]] as const).map(([Icon, name, num], i) => {
           let LikedIcon = (name === "likes") ? Icon[1] : null
           let ThumbIcon = (name === "likes") ? Icon[0] : null
           let icon = (name === "likes") ?
@@ -40,11 +40,22 @@ export default function NewsReaction({ likes, comments, emoji, link }) {
               onClick={
                 name === "likes" ?
                   () => setLiked(x => !x)
-                  : (
+                  :
+                  (
                     name === "whatsapp" ?
                       () => location.href = "whatsapp://send?text=" + encodeURIComponent(link)
-                      : (
-                        () => { }
+                      :
+                      (
+                        name === "share" ?
+                          () => {
+                            navigator.share?.({
+                              // title: 'Awesome Website',
+                              // text: 'Check out this cool site!',
+                              url: link
+                            }) || alert("Sorry, your browser doesn't support this action")
+                          }
+                          :
+                          () => { } //comment
                       )
                   )
               }
