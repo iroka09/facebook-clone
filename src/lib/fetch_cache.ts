@@ -20,7 +20,7 @@ export async function readFromCache<T>(cacheKey: string): Promise<T | null> {
     const cacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
     return cacheData[cacheKey] as T || null;
   } catch (error) {
-    console.error('Error reading cache:', error);
+    console.log('Error reading cache:', error);
     return null;
   }
 }

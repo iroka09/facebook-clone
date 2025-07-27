@@ -82,7 +82,7 @@ async function fetchNews(count = 1) {
     return value as NewsDataResponse
   }
   catch (fetchError) {
-    console.error('News Fetch failed, trying cache');
+    console.log('News Fetch failed, trying cache');
     // If fetch fails, try to get cached data
     const cachedData = await readFromCache<NewsDataResponse>(cacheKey);
     if (cachedData) {

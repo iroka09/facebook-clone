@@ -17,7 +17,7 @@ export async function getUsers(params?: string): Promise<UsersResponse["users"]>
     await writeToCache(cacheKey, data);
     return data.users
   } catch (fetchError) {
-    console.error('Users Fetch failed, trying cache');
+    console.log('Users Fetch failed, trying cache');
     // If fetch fails, try to get cached data
     const cachedData = await readFromCache<UsersResponse>(cacheKey);
     if (cachedData) {
