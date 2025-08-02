@@ -40,9 +40,9 @@ export default async function App() {
           {
             users?.slice(0, 15).map((user, index) => (
               <StoryLine key={index}>
-                <Image className="object-cover h-full w-full" alt="create story picture" src={user.picture.large} width="100" height="200" />
+                <img className="object-cover h-full w-full" alt="create story picture" src={user.picture.large} width="100" height="200" />
                 <span
-                  className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black] capitalize"
+                  className="absolute bottom-0 inset-x-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black] capitalize"
                 >
                   {user.name.first} {user.name.last}
                 </span>
