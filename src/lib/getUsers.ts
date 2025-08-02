@@ -11,12 +11,12 @@ export async function getUsers(): Promise<UserDocument[] | never> {
     // First try to fetch fresh data
     const resp = await fetch('https://raw.githubusercontent.com/feedhenry/users-api/master/seed/users.json', { cache: "force-cache" });
     if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
-    const data = (await resp.json() as UserData)[0]
+    const data = (await resp.json() as UserData)[0].documents
     // Cache the fresh data
     // console.log(data)
-    await writeToCache(cacheKey, data.documents);
-    data.documents.sort(() => random.boolean() ? 1 : -1)
-    return data.documents
+    await writeToCache(cacheKey, data);
+    data.sort(() => random.boolean() ? 1 : -1)
+    return data
   }
   catch (e) {
     console.log('Users Fetch failed, trying cache');

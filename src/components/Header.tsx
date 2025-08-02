@@ -13,7 +13,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 function CircleButton({ className = "", children, ...props }) {
   return (
-    <button className="inline-grid place-items-center p-1 rounded-full bg-gray-200" {...props}>
+    <button className="inline-grid place-items-center p-1 rounded-full bg-slate-200" {...props}>
       {children}
     </button>
   )

@@ -49,13 +49,7 @@ const categories = ["general", "world", "nation", "business", "technology", "ent
 const cacheKey = "fetched_news"
 
 
-export async function getNews(): Promise<NewsDataResponse["results"]> {
-  const news = await fetchNews(2)
-  return news.results
-}
-
-
-async function fetchNews(count = 1) {
+export async function getNews(count = 1): Promise<NewsDataResponse["results"]> {
   const arr: NewsDataResponse[] = []
   const q = [...categories]
   try {
@@ -79,7 +73,7 @@ async function fetchNews(count = 1) {
     })
     // Cache the fresh data
     await writeToCache(cacheKey, value);
-    return value as NewsDataResponse
+    return (value as NewsDataResponse).results
   }
   catch (fetchError) {
     console.log('News Fetch failed, trying cache');
@@ -87,7 +81,7 @@ async function fetchNews(count = 1) {
     const cachedData = await readFromCache<NewsDataResponse>(cacheKey);
     if (cachedData) {
       console.log('News Fetch Using cached data');
-      return cachedData;
+      return cachedData.results;
     }
     // If no cached data available, rethrow the original error
     throw fetchError;

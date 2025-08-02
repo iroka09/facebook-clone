@@ -20,7 +20,7 @@ export default async function App() {
           <span className="block absolute bottom-0 -right-1 w-4 aspect-square rounded-full bg-green-600 border-2 border-white"></span>
         </span>
         <div className="flex w-full">
-          <input className="block rounded-full bg-gray-200 w-full p-3 outline-none placeholder:text-gray-800" placeholder="What's on your mind?" />
+          <input className="block rounded-full bg-slate-100 w-full p-3 outline-none placeholder:text-gray-800" placeholder="What's on your mind?" />
         </div>
         <BsFileImage className="text-5xl text-green-500" />
       </section>

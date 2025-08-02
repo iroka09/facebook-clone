@@ -26,6 +26,7 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
   const users = _users.slice(0, 15)
   users.reverse()
   const mutuals = _users.slice(users[16] ? 16 : 0)
-  elements.splice(random.int(0, elements.length - 1), 0, ["add_friends_feed", <AddFriendsFeed key={Math.random()} users={users} mutuals={mutuals}/>])
+  const withRemoveButton = false //random.boolean()
+  elements.splice(random.int(0, elements.length - 1), 0, ["add_friends_feed", <AddFriendsFeed key={Math.random()} users={users} mutuals={mutuals} withRemoveButton={withRemoveButton} />])
   return elements.map(x => x[1])
 }
