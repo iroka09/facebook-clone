@@ -1,5 +1,4 @@
 
-import Image from "next/image"
 import { GoHome } from "react-icons/go";
 import { RiGroupLine } from "react-icons/ri";
 import { RiMessengerLine } from "react-icons/ri";

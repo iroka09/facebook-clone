@@ -1,76 +1,36 @@
-export interface UsersResponse {
-  users: User[];
-  total: number;
-  skip: number;
-  limit: number;
+export interface UserData {
+  model: string; // e.g., "User"
+  documents: UserDocument[];
 }
 
-export interface User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  maidenName: string;
-  age: number;
-  gender: string;
+export interface UserDocument {
+  gender: 'male' | 'female';
+  name: {
+    title: string;
+    first: string;
+    last: string;
+  };
+  location: {
+    street: string;
+    city: string;
+    state: string;
+    zip: number;
+  };
   email: string;
-  phone: string;
   username: string;
   password: string;
-  birthDate: string; // ISO date string, e.g. "1996-05-30"
-  image: string;
-  bloodGroup: string;
-  height: number; // in cm
-  weight: number; // in kg
-  eyeColor: string;
-  hair: Hair;
-  ip: string;
-  address: Address;
-  macAddress: string;
-  university: string;
-  bank: Bank;
-  company: Company;
-  ein: string;
-  ssn: string;
-  userAgent: string;
-  crypto: CryptoInfo;
-  role: 'admin' | 'moderator' | 'user';
-}
-
-export interface Hair {
-  color: string;
-  type: string;
-}
-
-export interface Address {
-  address: string;
-  city: string;
-  state: string;
-  stateCode: string;
-  postalCode: string;
-  coordinates: {
-    lat: number;
-    lng: number;
+  salt: string;
+  md5: string;
+  sha1: string;
+  sha256: string;
+  registered: number; // Unix timestamp
+  dob: number; // Unix timestamp
+  phone: string;
+  cell: string;
+  PPS: string;
+  picture: {
+    large: string;
+    medium: string;
+    thumbnail: string;
   };
-  country: string;
-}
-
-export interface Bank {
-  cardExpire: string;  // e.g. "03/26"
-  cardNumber: string;
-  cardType: string;
-  currency: string;
-  iban: string;
-}
-
-export interface Company {
-  department: string;
-  name: string;
-  title: string;
-  address: Address;
-}
-
-export interface CryptoInfo {
-  coin: string;
-  wallet: string;
-  network: string;
 }

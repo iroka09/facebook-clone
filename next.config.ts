@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
     unoptimized: staticExport, //defaults to false, set to trur if using Next.js Image component with static export
     remotePatterns: [
       new URL('https://picsum.photos/**'),
+      new URL('https://api.github.com/**'),
+      new URL('https://randomuser.me/**'),
       new URL('https://dummyjson.com/**')
     ]
   },

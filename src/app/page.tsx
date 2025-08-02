@@ -9,7 +9,7 @@ import { getUsers } from "@/lib/getUsers"
 
 
 export default async function App() {
-  const users = await getUsers("?limit=10&skip=0&select=firstName,lastName,image")
+  const users = await getUsers()
   const news = await getNews()
   return (
     <div>
@@ -38,13 +38,13 @@ export default async function App() {
             </div>
           </StoryLine>
           {
-            users.map((user, index) => (
+            users?.slice(0, 15).map((user, index) => (
               <StoryLine key={index}>
-                <Image className="object-cover h-full w-full" alt="create story picture" src={`https://picsum.photos/seed/${user.firstName + "_" + user.lastName}/100`} width="100" height="200" />
+                <Image className="object-cover h-full w-full" alt="create story picture" src={user.picture.large} width="100" height="200" />
                 <span
-                  className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black]"
+                  className="absolute z-1 bottom-0 left-0 right-0 p-2 font-bold text-white whitespace-normal [text-shadow:0_0_1px_black] capitalize"
                 >
-                  {user.firstName} {user.lastName}
+                  {user.name.first} {user.name.last}
                 </span>
               </StoryLine>
             ))
@@ -52,7 +52,7 @@ export default async function App() {
         </ul>
       </section >
       <section className="divide-y-4 divide-gray-300">
-        <NewsFeed news={news} />
+        <NewsFeed news={news} users={users} />
       </section>
     </div>
   )

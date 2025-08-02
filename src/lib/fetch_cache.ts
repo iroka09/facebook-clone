@@ -18,7 +18,7 @@ export async function readFromCache<T>(cacheKey: string): Promise<T | null> {
   if (!fs.existsSync(CACHE_FILE)) return null
   try {
     const cacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
-    return cacheData[cacheKey] as T || null;
+    return cacheData[cacheKey] || null;
   } catch (error) {
     console.log('Error reading cache:', error);
     return null;
