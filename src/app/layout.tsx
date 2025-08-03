@@ -2,6 +2,8 @@
 import React from "react"
 import { Metadata } from "next"
 import Providers from "@/app/Providers"
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 import Script from "next/script"
 //import { cookies } from 'next/headers'
 import "@/styles/globals.css"
@@ -17,7 +19,9 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <html lang="en" suppressHydrationWarning>
       <body className="">
         <Providers>
+          <Header withNav />
           {children}
+          <Footer />
         </Providers>
         <Script
           src="/static/eruda.js"

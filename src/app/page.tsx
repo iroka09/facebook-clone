@@ -1,5 +1,4 @@
 
-import Header from "@/components/Header"
 import NewsFeed from "@/components/NewsFeed"
 import Image from "next/image"
 import { BsFileImage } from "react-icons/bs";
@@ -13,16 +12,15 @@ export default async function App() {
   const news = await getNews()
   return (
     <div>
-      <Header withNav />
       <section className="flex items-center justify-between gap-3 p-3">
-        <span className="relative block">
+        <span className="relative block dormant-btn">
           <Image alt="profile picture" src="https://picsum.photos/seed/profile_pic/60" width="60" height="60" className="rounded-full " />
           <span className="block absolute bottom-0 -right-1 w-4 aspect-square rounded-full bg-green-600 border-2 border-white"></span>
         </span>
         <div className="flex w-full">
           <input className="block rounded-full bg-slate-100 w-full p-3 outline-none placeholder:text-gray-800" placeholder="What's on your mind?" />
         </div>
-        <BsFileImage className="text-5xl text-green-500" />
+        <BsFileImage className="text-5xl text-green-500 dormant-btn" />
       </section>
       <section>
         <ul className="p-3 *:w-[100px] *:h-[180px] *:rounded-md *:overflow-hidden *:border whitespace-nowrap space-x-1 overflow-x-auto border-t-2 ">
@@ -62,7 +60,7 @@ export default async function App() {
 function StoryLine({ className = "", children }) {
   return (
     <li
-      className={"relative inline-block active:bg-gray-100 active:scale-[0.95] select-none transition" +
+      className={"relative inline-block active:bg-gray-100 active:scale-[0.95] select-none transition dormant-btn" +
         " " + className}
     >
       {children}

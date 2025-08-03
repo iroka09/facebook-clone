@@ -1,4 +1,4 @@
-import Image from "next/image"
+
 import Link from "next/link"
 import { IoMdClose } from "react-icons/io";
 import { IoIosMore } from "react-icons/io";
@@ -20,7 +20,7 @@ export default function News({ data }) {
     <ul className="py-3 space-y-3">
       <li className="px-3 flex items-center gap-3">
         <div className={`w-fit aspect-square overflow-hidden rounded-full box-border ${hasStatus ? "border-2 border-primary" : "border-2 border-gray-500"}`}>
-          <img className={`bg-gray-50/30`} alt="news picture" src={data.source_icon} width="50" height="50" />
+          <img className="bg-gray-50/30 dormant-btn" alt="news picture" src={data.source_icon} width="50" height="50" />
         </div>
         <div>
           <h3 className="font-medium mb-1 font-medium">{data.source_name}</h3>
@@ -30,7 +30,7 @@ export default function News({ data }) {
             <span><IoMdGlobe /></span>
           </div>
         </div>
-        <div className="ml-auto flex gap-3 items-center text-2xl">
+        <div className="ml-auto flex gap-3 items-center text-2xl dormant-btn">
           <IoIosMore />
           <IoMdClose />
         </div>

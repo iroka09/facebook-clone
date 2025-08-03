@@ -8,11 +8,11 @@ import { PiShareFatLight } from "react-icons/pi";
 import { IoMdThumbsUp } from "react-icons/io";
 
 
-interface PropsType { 
-  likes:number,
-  comments:number,
-  emoji:string,
-  link : string
+interface PropsType {
+  likes: number,
+  comments: number,
+  emoji: string,
+  link: string
 }
 
 
@@ -44,6 +44,7 @@ export default function NewsReaction({ likes, comments, emoji, link }: PropsType
               num={num}
               name={name}
               liked={liked}
+              className={name === "comments" ? "dormant-btn" : ""}
               onClick={
                 name === "likes" ?
                   () => setLiked(x => !x)
@@ -75,9 +76,9 @@ export default function NewsReaction({ likes, comments, emoji, link }: PropsType
 }
 
 
-function ButtonReaction({ icon, num, name, liked, onClick }) {
+function ButtonReaction({ icon, num, name, liked, className, onClick }) {
   return (
-    <button className="flex gap-2 justify-center items-center py-2 px-5 bg-gray-100 active:bg-gray-200 rounded-full w-[70px]" onClick={onClick}>
+    <button className={"flex gap-2 justify-center items-center py-2 px-5 bg-gray-100 active:bg-gray-200 rounded-full w-[70px] " + className} onClick={onClick}>
       <span className="text-lg">{icon}</span> {(typeof num === "number") && <span className="text-sm">{name === "likes" ? num + (+liked) : num}</span>}
     </button>
   )

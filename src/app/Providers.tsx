@@ -12,7 +12,19 @@ interface WindowWithEruda extends Window {
 
 export default function ({ children }) {
   useEffect(() => {
-    (window as WindowWithEruda).eruda?.init()
+    if (process.env.NODE_ENV === "development") {
+      (window as WindowWithEruda).eruda?.init()
+    }
+    const fn = () => alert("Coming Soon 😀")
+    const eles = document.querySelectorAll(".dormant-btn")
+    eles.forEach(ele => {
+      ele.addEventListener("click", fn)
+    })
+    return () => {
+      eles.forEach(ele => {
+        ele.addEventListener("click", fn)
+      })
+    }
   }, [])
   return (
     <ReduxProvider store={store} >

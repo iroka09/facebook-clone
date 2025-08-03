@@ -13,7 +13,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 
 function CircleButton({ className = "", children, ...props }) {
   return (
-    <button className="inline-grid place-items-center p-1 rounded-full bg-slate-200" {...props}>
+    <button className="inline-grid place-items-center p-1 rounded-full bg-slate-200 dormant-btn" {...props}>
       {children}
     </button>
   )
@@ -34,12 +34,9 @@ export default function Navs({ withNav = true }) {
       {withNav && (
         <nav>
           <ul className="flex px-3 justify-between text-2xl items-center border-b active:*:bg-slate-100 *:p-4">
-            <li><GoHome /></li>
-            <li><RiGroupLine /></li>
-            <li><RiMessengerLine /></li>
-            <li><MdOndemandVideo /></li>
-            <li><GrNotification /></li>
-            <li><CiShop className="stroke-[0.8px]" /></li>
+            {[GoHome, RiGroupLine, RiMessengerLine, MdOndemandVideo, GrNotification, CiShop].map((Icon, i) => (
+              <li key={i} className="stroke-[0.8px] dormant-btn">{<Icon />}</li>
+            ))}
           </ul>
         </nav>
       )}

@@ -15,9 +15,9 @@ export default function Reels({ seed }) {
             <BiSolidMoviePlay className="text-2xl" />
             <h4 className="text-lg pb-1">Reels</h4>
           </div>
-          <IoIosMore className="ml-auto text-2xl" />
+          <IoIosMore className="ml-auto text-2xl dormant-btn" />
         </li>
-        <li className="rounded-xl overflow-hidden w-full aspect-[5/7] relative bg-gradient-to-b from-gray-50 to-gray-200 to-70%">
+        <li className="rounded-xl overflow-hidden w-full aspect-[5/7] relative bg-gradient-to-b from-gray-50 to-gray-200 to-70% dormant-btn">
           <Image className="block w-full h-full absolute inset-0 object-cover" alt="create story picture" src={`https://picsum.photos/seed/reel${seed}/100`} width="100" height="100" />
           <div className="absolute inset-0 grid place-items-center">
             <span className="grid place-items-center w-14 aspect-square rounded-full border-2 bg-gray-800/50 text-white">
