@@ -8,8 +8,15 @@ import { PiShareFatLight } from "react-icons/pi";
 import { IoMdThumbsUp } from "react-icons/io";
 
 
+interface PropsType { 
+  likes:number,
+  comments:number,
+  emoji:string,
+  link : string
+}
 
-export default function NewsReaction({ likes, comments, emoji, link }) {
+
+export default function NewsReaction({ likes, comments, emoji, link }: PropsType) {
   const [liked, setLiked] = useState(false)
   return (
     <>
