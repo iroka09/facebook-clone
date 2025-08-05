@@ -5,8 +5,8 @@ import Providers from "@/app/Providers"
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import Script from "next/script"
-//import { cookies } from 'next/headers'
 import "@/styles/globals.css"
+//import { cookies } from 'next/headers'
 
 
 export const metadata: Metadata = {
