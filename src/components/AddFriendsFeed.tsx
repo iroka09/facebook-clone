@@ -19,7 +19,7 @@ export default function AddFriendsFeed({ users, mutuals, withRemoveButton }: { u
         </div>
         <IoIosMore className="text-3xl active:bg-slate-200 dormant-btn" />
       </div>
-      <ul className="whitespace-nowrap overflow-x-auto space-x-3 snap-x snap-mandatory px-3">
+      <ul className="whitespace-nowrap overflow-x-scroll space-x-3 snap-x snap-mandatory px-3">
         {users.map((user, i) => {
           const mutualPic = mutuals[i] ? mutuals[i].picture.thumbnail : mutuals[0].picture.thumbnail
           return (

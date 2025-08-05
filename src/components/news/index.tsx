@@ -36,7 +36,10 @@ export default function News({ data }) {
         </div>
       </li>
       <li className="px-3 text-slate-700">
-        <NewsContent text={data.description?.replace(/\.{3}.*$/s, ".")} />
+        <NewsContent
+          text={data.description?.replace(/\.{3}.*$/s, ".")}
+          totalShortWords={random.int(8, 15)}
+        />
       </li>
       <li>
         <Link href={data.link} className="bg-gray-500/30">
@@ -46,8 +49,8 @@ export default function News({ data }) {
       {random.boolean() && (
         <li className="bg-gray-100">
           <Link
-            href={data.link}
             className="px-3 block active:bg-gray-200"
+            href={data.link}
           >
             {showSourceLinkBelow && <h4 className="text-slate-400">{data.source_url.replace(/^http(s)?\:\/\/(www\.)?/i, "").toUpperCase()}</h4>}
             <span className="font-bold">{data.title.replace(/(?<=(\w+\s){9}\w+(?=\s)).+$/, "...")}</span>

@@ -5,10 +5,11 @@ import Reels from "@/components/reels"
 import AddFriendsFeed from "@/components/AddFriendsFeed"
 import random from "random"
 import { NewsDataArticle } from "@/lib/getNews"
+import { UserDocument } from "@/lib/get_users_types"
 
 
 
-export default function NewsFeed({ news, users: _users }: { news: NewsDataArticle[], users: object[] }): React.ReactNode {
+export default function NewsFeed({ news, users: _users }: { news: NewsDataArticle[], users: UserDocument[] }): React.ReactNode {
   const elements: ([string, React.JSX.Element] | never)[] = []
   //add news
   news.forEach((data) => {
@@ -25,8 +26,8 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
   //add people you may know
   const users = _users.slice(0, 15)
   users.reverse()
-  const mutuals = _users.slice(users[16] ? 16 : 0)
-  const withRemoveButton = false //random.boolean()
+  const mutuals = _users.slice(users[15] ? 15 : 0)
+  const withRemoveButton = random.boolean()
   elements.splice(random.int(0, elements.length - 1), 0, ["add_friends_feed", <AddFriendsFeed key={Math.random()} users={users} mutuals={mutuals} withRemoveButton={withRemoveButton} />])
   return elements.map(x => x[1])
 }

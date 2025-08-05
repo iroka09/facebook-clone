@@ -3,11 +3,11 @@
 import { useState, useMemo } from "react"
 import random from "random"
 
-export default function Feed({ text }: { text: string }) {
+
+export default function Feed({ text, totalShortWords }: { text: string, totalShortWords: number }) {
   const shortText = useMemo(() => {
-    if(!text)return "empty string"
-    const totalWords = text.split(/\s+/).length;
-    const totalShortWords = random.int(8, 15);
+    if (!text) return "[No content]"
+    const totalWords = text.match(/\w+[^\s]+/g).length;
     if (totalShortWords >= totalWords) return text
     return text.split(/\s+/).slice(0, totalShortWords).join(" ").replace(/\.+$/, "")
   }, [])
@@ -16,8 +16,8 @@ export default function Feed({ text }: { text: string }) {
   return (
     <Result onClick={() => setShow(x => !x)} >
       {
-        show ? 
-        <span>{text}</span>
+        show ?
+          <span>{text}</span>
           :
           <>
             <span>{shortText}</span>
