@@ -8,6 +8,7 @@ import NewsReactions from "./NewsReactions"
 import { FcLike } from "react-icons/fc";
 import random from "random"
 import moment from "moment"
+import { getProcessedImageSRC } from "@/lib/getProcessedImageSRC"
 
 
 
@@ -43,7 +44,7 @@ export default function News({ data }) {
       </li>
       <li>
         <Link href={data.link} className="bg-gray-500/30">
-          <img className="w-full" alt="create story picture" src={data.image_url} width="200" height="120" />
+          <img className="w-full" src={getProcessedImageSRC(data.image_url)} width="200" height="120" />
         </Link>
       </li>
       {random.boolean() && (
