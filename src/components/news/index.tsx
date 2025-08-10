@@ -53,14 +53,15 @@ export default function News({ data }) {
             href={data.link}
           >
             {showSourceLinkBelow && <h4 className="text-slate-400">{data.source_url.replace(/^http(s)?\:\/\/(www\.)?/i, "").toUpperCase()}</h4>}
+
             <span className="font-bold">{data.title.replace(/(?<=(\w+\s){9}\w+(?=\s)).+$/, "...")}</span>
             {showSourceLinkBelow && random.boolean() && <span className="block text-slate-400 text-md">{data.description?.split(/\s+/).slice(0, 10).join(" ")}</span>}
           </Link>
         </li>
       )}
       <NewsReactions
-        comments={random.int(100, 500)}
-        likes={random.int(100, 500)}
+        comments={random.int(1, 999) + ""}
+        likes={random.int(1, 999)}
         emoji={random.choice(["😀", "😥", "😡", <FcLike className="text-lg" />, ""])}
         link={data.link}
       />

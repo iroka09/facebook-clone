@@ -21,14 +21,14 @@ export default function NewsReaction({ likes, comments, emoji, link }: PropsType
   return (
     <>
       <li className="px-3 text-slate-400 flex items-center justify-between">
-        <div className="flex items-center gap-[2px]">
+        <div className="flex items-center gap-[2px] whitespace-nowrap text-ellipsis">
           <span className="w-4 grid place-items-center bg-primary aspect-square rounded-full text-[70%] text-white">
             <IoMdThumbsUp />
           </span>
           {emoji}
-          <span>{likes + (+liked)}</span>
+          <span>{liked ? `You and ${likes} other${likes > 1 ? "s" : ""}` : likes}</span>
         </div>
-        <div>{comments} comments</div>
+        <div>{comments} comment{comments > 1 ? "s" : ""}</div>
       </li>
       <li className="px-3 flex justify-between">
         {([[[AiOutlineLike, IoMdThumbsUp], "likes", likes], [FaRegComment, "comments", comments], [FaWhatsapp, "whatsapp"], [PiShareFatLight, "share"]] as const).map(([Icon, name, num], i) => {
@@ -51,7 +51,9 @@ export default function NewsReaction({ likes, comments, emoji, link }: PropsType
                   :
                   (
                     name === "whatsapp" ?
-                      () => location.href = "whatsapp://send?text=" + encodeURIComponent(link)
+                      () => {
+                        location.href = "whatsapp://send?text=" + encodeURIComponent(link)
+                      }
                       :
                       (
                         name === "share" ?

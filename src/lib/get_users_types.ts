@@ -5,6 +5,8 @@ export interface UserData {
 
 export interface UserDocument {
   gender: 'male' | 'female';
+  sent_friend_request?: boolean,
+  friends?: boolean,
   name: {
     title: string;
     first: string;
