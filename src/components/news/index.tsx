@@ -44,7 +44,7 @@ export default function News({ data }) {
       </li>
       <li>
         <Link href={data.link} className="bg-gray-500/30">
-          <img className="w-full" src={getProcessedImageSRC(data.image_url)} width="200" height="120" />
+          <img className="w-full" src={getProcessedImageSRC(data.image_url, 50)} width="200" height="120" />
         </Link>
       </li>
       {random.boolean() && (
