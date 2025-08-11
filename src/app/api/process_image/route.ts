@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const imageUrl = searchParams.get('url');
-    const quality = searchParams.get('q') || 50;
+    const quality = +searchParams.get('q') || 50;
 
     if (!imageUrl) {
       return NextResponse.json(
