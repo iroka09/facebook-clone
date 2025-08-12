@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { UserDocument } from "@/lib/get_users_types"
 import { RiGroupLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
@@ -14,6 +14,7 @@ import { IoMdClose } from "react-icons/io";
 
 export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, withRemoveButton }: { people: UserDocument[], mutuals: UserDocument[], totalMutual: number[], withRemoveButton: boolean }) {
   const [people, setPeople] = useState(_people)
+  const containerRef = useRef<HTMLUListElement>(null)
   const removePerson = (email: string) => {
     setPeople(x => x.filter(y => y.email !== email))
   }
@@ -25,6 +26,27 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
       return { ...person }
     }))
   }
+  useEffect(() => {
+    const allCards = containerRef.current?.querySelectorAll("li")
+    if (allCards) {
+      const cardWidth = allCards[0].offsetWidth / 2
+      const func = function (e: Event) {
+        containerRef.current?.scrollBy({
+          left: cardWidth,
+          top: 0,
+          behavior: "smooth"
+        })
+      }
+      allCards.forEach(card => {
+        card.querySelector("#add:not(.cancel)")?.addEventListener("click", func)
+      })
+      return () => {
+        allCards.forEach(card => {
+          card.querySelector("#add:not(.cancel)")?.removeEventListener("click", func)
+        })
+      }
+    }
+  }, [])
   return (
     <div>
       <div className="flex justify-between px-3 py-2">
@@ -34,7 +56,7 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
         </div>
         <IoIosMore className="text-3xl active:bg-slate-200 dormant-btn" />
       </div>
-      <ul className="whitespace-nowrap overflow-x-scroll space-x-3 snap-x snap-mandatory px-3">
+      <ul ref={containerRef} className="whitespace-nowrap overflow-x-auto space-x-3 snap-x snap-mandatory px-3">
         {people.map((person, i) => {
           const mutualPic = mutuals[i] ? mutuals[i].picture.thumbnail : mutuals[0].picture.thumbnail
           return (
@@ -51,16 +73,27 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
                 {withRemoveButton ? (
                   <div className="mt-4 flex justify-between flex-1 items-end justify-between *:text-sm">
                     {(person.sent_friend_request) ?
-                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="hover:border-destructive hover:text-destructive hover:bg-transparent"><IoMdClose /> &nbsp; Cancel Req</Button>
+                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="cancel hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
                       :
-                      <Button onClick={() => toggleRequest(person.email)}><HiUserAdd /> Add Friend</Button>
+                      <>
+                        <Button onClick={() => toggleRequest(person.email)} id="add">
+                          <HiUserAdd /> Add Friend
+                        </Button>
+                        <Button variant="outline" className=" order ml-auto" onClick={() => removePerson(person.email)}>Remove</Button>
+                      </>
                     }
-                    <Button variant="outline" className="order ml-auto" onClick={() => removePerson(person.email)}>Remove</Button>
                   </div>
                 ) : (
                   <div className="mt-4">
-                    <Button className="flex gap-2 w-full border border-primary text-primary rounded-none py-5 dormant-btn" variant="outline">
-                      <HiUserAdd /> Add Friend</Button>
+                    {(person.sent_friend_request) ?
+                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="cancel flex gap-3 hover:text-foreground hover:bg-transparent w-full rounded-none">
+                        <IoMdClose /> Cancel Request
+                      </Button>
+                      :
+                      <Button id="add" className="flex gap-3 w-full border border-primary text-primary rounded-none" variant="outline" onClick={() => toggleRequest(person.email)}>
+                        <HiUserAdd /> Add Friend
+                      </Button>
+                    }
                   </div>
                 )}
               </div>

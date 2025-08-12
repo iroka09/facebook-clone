@@ -14,7 +14,7 @@ export default function Feed({ text, totalShortWords }: { text: string, totalSho
   if (text === shortText) return <Result>{text}</Result>;
   const [show, setShow] = useState(false)
   return (
-    <Result onClick={() => setShow(x => !x)} >
+    <Result onClick={() => setShow(x => !x)}>
       {
         show ?
           <span>{text}</span>

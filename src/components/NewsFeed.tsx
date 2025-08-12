@@ -8,9 +8,10 @@ import { UserDocument } from "@/lib/get_users_types"
 import random from "random"
 
 
+type ElementNames = "news" | "reels" | "add_friends_feed"
 
 export default function NewsFeed({ news, users: _users }: { news: NewsDataArticle[], users: UserDocument[] }): React.ReactNode {
-  const elements: Array<[string, React.JSX.Element]> = []
+  const elements: Array<[ElementNames, React.JSX.Element]> = []
   //add news
   news.forEach((data) => {
     elements.push(["news", <News key={data.article_id} data={data} />])
@@ -23,17 +24,29 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
     }
     i++
   }
+  /*
+  type ElementNames = "news" | "reels" | "add_friends_feed"
+  
+    interface We<T = number> {
+      [K in ElementNames]?: T
+    }
+  
+    let obj: We<string> = {
+      news: "BBC",
+      reels: "Joy is coming"
+    }
+  */
   //add people you may know
   const users = _users.slice(0, 15)
   users.reverse()
   const mutuals = _users.slice(users[15] ? 15 : 0)
-  const withRemoveButton = true// random.boolean()
+  const withRemoveButton = random.boolean()
   elements.splice(
     random.int(0, elements.length - 1),
     0,
     [
       "add_friends_feed",
-      <AddFriendsFeed
+      <AddFriendsFeed 
         key={Math.random()}
         people={users}
         mutuals={mutuals}
