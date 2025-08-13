@@ -27,28 +27,29 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
     }))
   }
   useEffect(() => {
-    const allCards = containerRef.current?.querySelectorAll("li")
-    if (allCards) {
-      const cardWidth = allCards[0].offsetWidth / 2
-      const func = function (e: Event) {
+    const allAddButtons = containerRef.current?.querySelectorAll("#AddFriendsFeed ul li button.add_friend_button") as NodeListOf<HTMLButtonElement> | null
+    const cardWidth = Number(containerRef.current?.querySelector("li")?.offsetWidth) / 2
+    if (allAddButtons && cardWidth) {
+      function trigger(e: MouseEvent) {
+        if (!(e.target as HTMLButtonElement).classList.contains("add_friend_button")) return
         containerRef.current?.scrollBy({
           left: cardWidth,
           top: 0,
           behavior: "smooth"
         })
       }
-      allCards.forEach(card => {
-        card.querySelector("#add:not(.cancel)")?.addEventListener("click", func)
+      allAddButtons.forEach(button => {
+        button.addEventListener("click", trigger)
       })
       return () => {
-        allCards.forEach(card => {
-          card.querySelector("#add:not(.cancel)")?.removeEventListener("click", func)
+        allAddButtons.forEach(button => {
+          button.removeEventListener("click", trigger)
         })
       }
     }
   }, [])
   return (
-    <div>
+    <div id="AddFriendsFeed">
       <div className="flex justify-between px-3 py-2">
         <div className="flex gap-2 items-center">
           <RiGroupLine className="text-lg" />
@@ -73,10 +74,10 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
                 {withRemoveButton ? (
                   <div className="mt-4 flex justify-between flex-1 items-end justify-between *:text-sm">
                     {(person.sent_friend_request) ?
-                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="cancel hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
+                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
                       :
                       <>
-                        <Button onClick={() => toggleRequest(person.email)} id="add">
+                        <Button onClick={() => toggleRequest(person.email)} className="add_friend_button">
                           <HiUserAdd /> Add Friend
                         </Button>
                         <Button variant="outline" className=" order ml-auto" onClick={() => removePerson(person.email)}>Remove</Button>
@@ -86,11 +87,11 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
                 ) : (
                   <div className="mt-4">
                     {(person.sent_friend_request) ?
-                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="cancel flex gap-3 hover:text-foreground hover:bg-transparent w-full rounded-none">
+                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="flex gap-3 hover:text-foreground hover:bg-transparent w-full rounded-none">
                         <IoMdClose /> Cancel Request
                       </Button>
                       :
-                      <Button id="add" className="flex gap-3 w-full border border-primary text-primary rounded-none" variant="outline" onClick={() => toggleRequest(person.email)}>
+                      <Button className="add_friend_button flex gap-3 w-full border border-primary text-primary rounded-none" variant="outline" onClick={() => toggleRequest(person.email)}>
                         <HiUserAdd /> Add Friend
                       </Button>
                     }
