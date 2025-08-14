@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-//import sharp from 'sharp';
+import sharp from 'sharp';
 
 
 export const dynamic = 'force-dynamic';
@@ -8,12 +8,8 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = req.nextUrl// new URL(decodeURIComponent(req.url))
+    const { searchParams } = req.nextUrl
     const imageUrl = searchParams.get('url');
-
-    console.log("nextUrl", req.nextUrl)
-    console.log("imageUrl", imageUrl)
-
     const quality = Number(searchParams.get('q')) || 50;
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, {
@@ -38,7 +34,6 @@ export async function GET(req: NextRequest) {
     const arrayBuffer = await imageResponse.arrayBuffer();
     const buffer = globalThis.Buffer.from(arrayBuffer);
     // Process with Sharp
-    return 5/*
     const processedImage = await sharp(buffer)
       .jpeg({ mozjpeg: true, quality })
       .toBuffer();
@@ -48,7 +43,7 @@ export async function GET(req: NextRequest) {
         'Content-Type': 'image/jpeg',
         //'Cache-Control': 'no-store, max-age=0'
       },
-    });*/
+    });
   }
   catch (e) {
     console.error('Error processing image: ', e);
