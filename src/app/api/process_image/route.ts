@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from 'next/server';
 import sharp from 'sharp';
 
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 
 
@@ -19,7 +19,8 @@ export async function GET(req: NextRequest) {
     // Validate URL format
     try {
       new URL(imageUrl);
-    } catch (e) {
+    }
+    catch (e) {
       console.log(e)
       return NextResponse.json({ error: 'Invalid URL format' }, {
         status: 400

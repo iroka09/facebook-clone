@@ -18,38 +18,43 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
   const removePerson = (email: string) => {
     setPeople(x => x.filter(y => y.email !== email))
   }
-  const toggleRequest = (email: string) => {
+  const sendRequest = (email: string, sent = true) => {
     setPeople(people => people.map(person => {
       if (person.email === email) {
-        return { ...person, sent_friend_request: !person.sent_friend_request }
+        return { ...person, sent_friend_request: sent }
       }
       return { ...person }
     }))
   }
   useEffect(() => {
-    const allAddButtons = containerRef.current?.querySelectorAll("#AddFriendsFeed ul li button.add_friend_button") as NodeListOf<HTMLButtonElement> | null
-    const cardWidth = Number(containerRef.current?.querySelector("li")?.offsetWidth) / 2
-    if (allAddButtons && cardWidth) {
+    const addFriendsBox = containerRef.current
+    const card = addFriendsBox?.firstElementChild as (HTMLLIElement | null)
+    const cardWidth = Number(card?.offsetWidth) / 2
+    if (addFriendsBox && card) {
       function trigger(e: MouseEvent) {
-        if (!(e.target as HTMLButtonElement).classList.contains("add_friend_button")) return
-        containerRef.current?.scrollBy({
-          left: cardWidth,
-          top: 0,
-          behavior: "smooth"
-        })
+        const clicked = e.target as HTMLElement
+        if (clicked.tagName === "BUTTON") {
+          const email = clicked.dataset.email
+          const isAddButton = clicked.classList.contains("add_friend_button")
+          const isCancelButton = clicked.classList.contains("cancel_req")
+          const isRemoveButton = clicked.classList.contains("remove_card")
+          if (isRemoveButton) removePerson(email)
+          else sendRequest(email, isAddButton)
+          if (isAddButton) {
+            addFriendsBox!.scrollBy({
+              left: cardWidth,
+              top: 0,
+              behavior: "smooth"
+            })
+          }
+        }
       }
-      allAddButtons.forEach(button => {
-        button.addEventListener("click", trigger)
-      })
-      return () => {
-        allAddButtons.forEach(button => {
-          button.removeEventListener("click", trigger)
-        })
-      }
+      addFriendsBox.addEventListener("click", trigger)
+      return () => addFriendsBox.removeEventListener("click", trigger)
     }
   }, [])
   return (
-    <div id="AddFriendsFeed">
+    <div>
       <div className="flex justify-between px-3 py-2">
         <div className="flex gap-2 items-center">
           <RiGroupLine className="text-lg" />
@@ -74,24 +79,24 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
                 {withRemoveButton ? (
                   <div className="mt-4 flex justify-between flex-1 items-end justify-between *:text-sm">
                     {(person.sent_friend_request) ?
-                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
+                      <Button variant="outline" data-email={person.email} /*onClick={() => sendRequest(person.email, false)}*/ className="cancel_req hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
                       :
                       <>
-                        <Button onClick={() => toggleRequest(person.email)} className="add_friend_button">
+                        <Button data-email={person.email}  /*onClick={() => sendRequest(person.email, true)}*/ className="add_friend_button">
                           <HiUserAdd /> Add Friend
                         </Button>
-                        <Button variant="outline" className=" order ml-auto" onClick={() => removePerson(person.email)}>Remove</Button>
+                        <Button variant="outline" data-email={person.email} className=" remove_card order ml-auto" /*onClick={() => removePerson(person.email)}*/>Remove</Button>
                       </>
                     }
                   </div>
                 ) : (
                   <div className="mt-4">
                     {(person.sent_friend_request) ?
-                      <Button variant="outline" onClick={() => toggleRequest(person.email)} className="flex gap-3 hover:text-foreground hover:bg-transparent w-full rounded-none">
+                      <Button variant="outline" data-email={person.email}  /*onClick={() => sendRequest(person.email, false)}*/ className="cancel_req flex gap-3 hover:text-foreground hover:bg-transparent w-full rounded-none">
                         <IoMdClose /> Cancel Request
                       </Button>
                       :
-                      <Button className="add_friend_button flex gap-3 w-full border border-primary text-primary rounded-none" variant="outline" onClick={() => toggleRequest(person.email)}>
+                      <Button className="add_friend_button flex gap-3 w-full border border-primary text-primary rounded-none" variant="outline" data-email={person.email}  /*onClick={() => sendRequest(person.email, true)}*/>
                         <HiUserAdd /> Add Friend
                       </Button>
                     }

@@ -24,18 +24,7 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
     }
     i++
   }
-  /*
-  type ElementNames = "news" | "reels" | "add_friends_feed"
   
-    interface We<T = number> {
-      [K in ElementNames]?: T
-    }
-  
-    let obj: We<string> = {
-      news: "BBC",
-      reels: "Joy is coming"
-    }
-  */
   //add people you may know
   const users = _users.slice(0, 15)
   users.reverse()
