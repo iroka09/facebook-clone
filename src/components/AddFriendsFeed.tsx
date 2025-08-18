@@ -1,7 +1,7 @@
 "use client"
 
 
-import { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { UserDocument } from "@/lib/get_users_types"
 import { RiGroupLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { HiUserAdd } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
-
+//import * as yup from "yup"
 
 interface AppProps {
   people: UserDocument[],
@@ -19,6 +19,10 @@ interface AppProps {
   withRemoveButton: boolean
 }
 
+function Test({ children }: { children: React.ReactNode }) {
+  console.log(children)
+  return <></>
+}
 
 export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, withRemoveButton }: AppProps) {
   const [people, setPeople] = useState(_people)
@@ -38,11 +42,12 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
     const addFriendsBox = containerRef.current
     const card = addFriendsBox?.firstElementChild as (HTMLLIElement | null)
     if (addFriendsBox && card) {
+      const cardWidth = card.offsetWidth / 2
       function trigger(e: MouseEvent) {
         const clicked = e.target as HTMLElement
         if (clicked.tagName === "BUTTON" && clicked.classList.contains("add_friend_button")) {
           addFriendsBox!.scrollBy({
-            left: Number(card?.offsetWidth) / 2,
+            left: cardWidth,
             top: 0,
             behavior: "smooth"
           })
@@ -54,6 +59,10 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
   }, [])
   return (
     <div>
+      <Test>
+        <h2>My heading</h2>
+        <button key="my_key_btn" onClick={(e)=>alert(e.target)}>Testing Button</button>
+      </Test>
       <div className="flex justify-between px-3 py-2">
         <div className="flex gap-2 items-center">
           <RiGroupLine className="text-lg" />
