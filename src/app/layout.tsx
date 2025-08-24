@@ -9,7 +9,6 @@ import "@/styles/globals.css"
 
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  // const headers = await _headers()
   return {
     title: "Facebook"
   }

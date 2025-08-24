@@ -18,13 +18,12 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
   })
   //randomly add reels
   let i = 0;
-  while (i < news.length) {
-    if (i > 0 && elements[i - 1]?.[0] !== "reels" && random.int(0, 20) > 14) {
-      elements.splice(i, 0, ["reels", <Reels key={Math.random()} seed={i} />])
+  while (++i < news.length) {
+    if (elements[i - 1]?.[0] !== "reels" && random.int(0, 20) > 14) {
+      elements.splice(i, 0, ["reels", <Reels key={`seed_${i}`} seed={`seed_${i}`} />])
     }
-    i++
   }
-  
+
   //add people you may know
   const users = _users.slice(0, 15)
   users.reverse()
@@ -35,7 +34,7 @@ export default function NewsFeed({ news, users: _users }: { news: NewsDataArticl
     0,
     [
       "add_friends_feed",
-      <AddFriendsFeed 
+      <AddFriendsFeed
         key={Math.random()}
         people={users}
         mutuals={mutuals}

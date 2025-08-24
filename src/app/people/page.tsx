@@ -1,9 +1,15 @@
 
+import { Metadata } from "next"
 import { getUsers } from "@/lib/getUsers"
 import People from "./People"
 import Header from "@/components/Header"
 import random from "random"
 
+
+
+export const metadata: Metadata = {
+  title: "Friends"
+}
 
 
 export default async function App() {
@@ -16,7 +22,7 @@ export default async function App() {
     <People
       people={users}
       mutuals={mutuals}
-      totalMutual={[...Array(users.length)].map(() => random.int(2, 20))}
+      totalMutualPerUser={[...Array(users.length)].map(() => random.int(2, 20))}
     />
   </>)
 }

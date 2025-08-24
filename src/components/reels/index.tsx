@@ -6,7 +6,7 @@ import { IoIosMore } from "react-icons/io";
 import random from "random"
 
 
-export default function Reels({ seed }) {
+export default function Reels({ seed }: { seed: `seed_${number}` }) {
   return (
     <>
       <ul className="p-3 space-y-2">

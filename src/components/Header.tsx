@@ -15,7 +15,7 @@ export default function Navs() {
       <nav>
         <ul className="flex px-3 justify-between text-2xl items-center border-b active:*:bg-slate-100 *:p-4">
           {([[GoHome, "/", true], [RiGroupLine, "/people", false], [RiMessengerLine, "#", false], [MdOndemandVideo, "#", false], [GrNotification, "#", false], [CiShop, "#", true]] as const).map(([Icon, href, isBolder], i) => (
-            <li key={i} className={`${isBolder ? "*:stroke-[0.8px] " : ""} text-gray-600`}>
+            <li key={i} className={`${isBolder ? "*:stroke-[0.9px] " : ""} text-gray-600`}>
               <Link href={href}><Icon /></Link>
             </li>
           ))}
