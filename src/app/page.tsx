@@ -1,10 +1,24 @@
 
 import NewsFeed from "@/components/NewsFeed"
 import Image from "next/image"
+import Header from "@/components/Header"
+import Link from "next/link"
 import { BsFileImage } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
+import { IoSearch } from "react-icons/io5";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { getNews } from "@/lib/getNews"
 import { getUsers } from "@/lib/getUsers"
+
+
+
+function CircleButton({ className = "", children, ...props }) {
+  return (
+    <button className="inline-grid place-items-center p-1 rounded-full bg-slate-200 text-slate-700 dormant-btn" {...props}>
+      {children}
+    </button>
+  )
+}
 
 
 export default async function App() {
@@ -12,6 +26,20 @@ export default async function App() {
   const news = await getNews()
   return (
     <div>
+      <div className="px-3 py-2 flex justify-between items-center">
+        <Link
+          className="font-bold text-primary text-3xl"
+          href="/"
+        >
+          facebook
+        </Link>
+        <div className="space-x-3 text-3xl active:*:bg-slate-300">
+          <CircleButton><IoMdAdd /></CircleButton>
+          <CircleButton><IoSearch /></CircleButton>
+          <CircleButton><RxHamburgerMenu /></CircleButton>
+        </div>
+      </div>
+          <Header />
       <section className="flex items-center justify-between gap-3 p-3">
         <span className="relative block dormant-btn">
           <Image alt="profile picture" src="https://picsum.photos/seed/profile_pic/60" width="60" height="60" className="rounded-full " />

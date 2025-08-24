@@ -2,15 +2,14 @@
 import React from "react"
 import { Metadata } from "next"
 import Providers from "@/app/Providers"
-import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import Script from "next/script"
 import "@/styles/globals.css"
-import { headers as _headers } from 'next/headers'
+// import { headers as _headers } from 'next/headers'
 
 
 export const generateMetadata = async (): Promise<Metadata> => {
-  const headers = await _headers()
+  // const headers = await _headers()
   return {
     title: "Facebook"
   }
@@ -22,7 +21,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
     <html lang="en" suppressHydrationWarning>
       <body className="">
         <Providers >
-          <Header withNav />
           {children}
           <Footer />
         </Providers>

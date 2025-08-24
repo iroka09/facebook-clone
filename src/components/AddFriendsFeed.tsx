@@ -3,6 +3,7 @@
 
 import React, { useState, useEffect, useRef } from "react"
 import { UserDocument } from "@/lib/get_users_types"
+import Link from "next/link"
 import { RiGroupLine } from "react-icons/ri";
 import { IoIosMore } from "react-icons/io";
 import { FaChevronRight } from "react-icons/fa";
@@ -12,6 +13,8 @@ import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 //import * as yup from "yup"
 
+
+
 interface AppProps {
   people: UserDocument[],
   mutuals: UserDocument[],
@@ -20,7 +23,7 @@ interface AppProps {
 }
 
 function Test({ children }: { children: React.ReactNode }) {
-  console.log(children)
+  // console.log(children)
   return <></>
 }
 
@@ -61,7 +64,7 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
     <div>
       <Test>
         <h2>My heading</h2>
-        <button key="my_key_btn" onClick={(e)=>alert(e.target)}>Testing Button</button>
+        <button key="my_key_btn" onClick={(e) => alert(e.target)}>Testing Button</button>
       </Test>
       <div className="flex justify-between px-3 py-2">
         <div className="flex gap-2 items-center">
@@ -134,7 +137,7 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
         </AnimatePresence>
       </ul>
       <div className="text-center py-3 px-4 ">
-        <span className="inline-flex gap-2 items-center active:bg-slate-200 p-2 mx-auto dormant-btn">See All <FaChevronRight /></span>
+        <Link href="/people" className="inline-flex gap-2 items-center active:bg-slate-200 p-2 mx-auto">See All <FaChevronRight /></Link>
       </div>
     </div>
   )
