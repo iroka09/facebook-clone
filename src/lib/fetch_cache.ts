@@ -28,12 +28,10 @@ export async function readFromCache<T>(cacheKey: string): Promise<T | null> {
 // Write to cache
 export async function writeToCache(cacheKey: string, data: object): Promise<void> {
   ensureCacheDir();
-  let cacheData = {};
+  let cacheData: Record<string, any> = {};
   if (fs.existsSync(CACHE_FILE)) {
     cacheData = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'));
   }
   cacheData[cacheKey] = data;
-  fs.writeFileSync(CACHE_FILE,
-    JSON.stringify(...prettifyJson ? [cacheData, null, 2] : [cacheData])
-  );
+  fs.writeFileSync(CACHE_FILE, prettifyJson ? JSON.stringify(cacheData, null, 2) : JSON.stringify(cacheData));
 }

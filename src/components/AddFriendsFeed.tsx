@@ -45,12 +45,12 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
     const addFriendsBox = containerRef.current
     const card = addFriendsBox?.firstElementChild as (HTMLLIElement | null)
     if (addFriendsBox && card) {
-      const cardWidth = card.offsetWidth / 2
+      const cardWidth = card.offsetWidth
       function trigger(e: MouseEvent) {
         const clicked = e.target as HTMLElement
         if (clicked.tagName === "BUTTON" && clicked.classList.contains("add_friend_button")) {
           addFriendsBox!.scrollBy({
-            left: cardWidth,
+            left: cardWidth/2,
             top: 0,
             behavior: "smooth"
           })
@@ -73,7 +73,7 @@ export default function AddFriendsFeed({ people: _people, mutuals, totalMutual, 
         </div>
         <IoIosMore className="text-3xl active:bg-slate-200 dormant-btn" />
       </div>
-      <ul ref={containerRef} className="whitespace-nowrap overflow-x-auto space-x-3 snap-x snap-mandatory px-3">
+      <ul ref={containerRef} className="whitespace-nowrap overflow-x-auto hide-scrollbar space-x-3 snap-x snap-mandatory px-3">
         <AnimatePresence >
           {people.map((person, i) => {
             const mutualPic = mutuals[i] ? mutuals[i].picture.thumbnail : mutuals[0].picture.thumbnail

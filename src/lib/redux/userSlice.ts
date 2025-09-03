@@ -6,19 +6,15 @@ import { createSlice } from '@reduxjs/toolkit'
 const themeSlice = createSlice({
   name: "user",
   initialState: {
-    username: "Iroka09",
-    password: "1234",
+    data: null
   },
   reducers: {
-    changeUsername(state, { payload }) {
-      state.username = payload
-    },
-    changePassword(state, { payload }) {
-      state.password = payload
-    },
+    setUser(state, { payload }) {
+      state.data = payload
+    }
   }
 })
 
 
-export const { changeUsername, changePassword } = themeSlice.actions
+export const { setUser } = themeSlice.actions
 export default themeSlice.reducer

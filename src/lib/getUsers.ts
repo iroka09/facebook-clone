@@ -4,6 +4,7 @@ import { writeToCache, readFromCache } from "@/lib/fetch_cache"
 import random from "random"
 
 
+
 const cacheKey = "fetched_users"
 // Fetch with cache fallback
 export async function getUsers(): Promise<UserDocument[] | never> {
@@ -11,9 +12,9 @@ export async function getUsers(): Promise<UserDocument[] | never> {
     // First try to fetch fresh data
     const resp = await fetch('https://raw.githubusercontent.com/feedhenry/users-api/master/seed/users.json', { cache: "force-cache" });
     if (!resp.ok) throw new Error(`HTTP error! status: ${resp.status}`);
-    console.log(await resp.json())
     const data = (await resp.json() as UserData[])[0].documents
     // Cache the fresh data
+    //console.log(await resp.json())
     // console.log(data)
     writeToCache(cacheKey, data);
     data.sort(() => random.boolean() ? 1 : -1)

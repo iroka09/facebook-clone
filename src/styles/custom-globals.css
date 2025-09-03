@@ -1,15 +1,14 @@
 .hide-scrollbar {
   /* For Internet Explorer and Edge */
   -ms-overflow-style: none;
-
   /* For Firefox */
   scrollbar-width: none;
-
   /* For Chrome, Safari, and Opera */
   overflow: -moz-scrollbars-none;
   overflow: auto;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+  display: none;
+  /* For Chrome, Safari, and Opera */
 }

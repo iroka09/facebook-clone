@@ -76,16 +76,16 @@ export default function People({ people: _people, mutuals, totalMutualPerUser }:
                     <span className="block h-[10px]"></span>
                   }
                 </div>
-                <div className="flex justify-between flex-1 items-end justify-between *:text-sm">
+                <div>
                   {(person.sent_friend_request) ?
-                    <Button variant="outline" onClick={() => sendRequest(person.email, false)} className="cancel_req hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
+                    <Button variant="outline" onClick={() => sendRequest(person.email, false)} className="cancel_req text-sm hover:text-foreground hover:bg-transparent w-full"><IoMdClose /> &nbsp; Cancel Request</Button>
                     :
-                    <>
+                    <div className="flex justify-between flex-1 items-end justify-between *:text-sm *:flex-1 gap-3">
                       <Button onClick={() => sendRequest(person.email, true)} className="add_friend_button shadow-none">
                         Add friend
                       </Button>
                       <Button className="shadow-none text-foreground order ml-auto bg-gray-200 hover:bg-gray-300" onClick={() => removePerson(person.email)}>Remove</Button>
-                    </>
+                    </div>
                   }
                 </div>
               </div>

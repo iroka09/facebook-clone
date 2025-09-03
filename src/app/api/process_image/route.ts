@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 
 
-async function getImage(imageUrl, quality) {
+async function getImage(imageUrl:string, quality:number) {
   const imageResponse = await fetch(imageUrl, { cache: "no-store" });
   if (!imageResponse.ok) {
     throw new Error(`Failed to fetch image: ${imageResponse.statusText}`);
@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
     // Validate URL format
     new URL(imageUrl);
     // Fetch the image with native fetch()
-    return await getImage(imageUrl, quality || 50)
+    return await getImage(imageUrl, quality || 40)
   }
   catch (e) {
     console.error('Error processing ORIGINAL image: ', e);

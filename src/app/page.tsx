@@ -39,7 +39,7 @@ export default async function App() {
           <CircleButton><RxHamburgerMenu /></CircleButton>
         </div>
       </div>
-          <Header />
+      <Header />
       <section className="flex items-center justify-between gap-3 p-3">
         <span className="relative block dormant-btn">
           <Image alt="profile picture" src="https://picsum.photos/seed/profile_pic/60" width="60" height="60" className="rounded-full " />
@@ -51,7 +51,7 @@ export default async function App() {
         <BsFileImage className="text-5xl text-green-500 dormant-btn" />
       </section>
       <section>
-        <ul className="p-3 *:w-[100px] *:h-[180px] *:rounded-md *:overflow-hidden *:border whitespace-nowrap space-x-1 overflow-x-auto border-t-2 ">
+        <ul className="p-3 *:w-[100px] *:h-[180px] *:rounded-md *:overflow-hidden *:border whitespace-nowrap space-x-1 overflow-x-auto hide-scrollbar border-t-2 ">
           <StoryLine>
             <div className="flex flex-col h-full">
               <div className="h-[60%]">
